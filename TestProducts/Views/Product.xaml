@@ -1,0 +1,24 @@
+﻿<Window x:Class="TestProducts.Views.Product"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestProducts.Views"
+        mc:Ignorable="d"
+        Title="Product" Height="450" Width="800">
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="30,88,0,0" TextWrapping="Wrap" Text="{Binding Type}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,58,0,0" TextWrapping="Wrap" Text="Тип" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="35,148,0,0" TextWrapping="Wrap" Text="Кол-во" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="35,169,0,0" TextWrapping="Wrap" Text="{Binding Amount}" VerticalAlignment="Top" Width="120"/>
+        <Image Source="{Binding Image}" HorizontalAlignment="Left" Height="100" Margin="239,88,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBlock HorizontalAlignment="Left" Margin="239,58,0,0" TextWrapping="Wrap" Text="Картинка" VerticalAlignment="Top"/>
+        <Button Command="{Binding LoadImage}" Content="Загрузить" HorizontalAlignment="Left" Margin="239,207,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding Add}" Content="Добавить" HorizontalAlignment="Left" Margin="30,334,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="347,51,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="347,21,0,0" TextWrapping="Wrap" Text="Название" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="514,51,0,0" TextWrapping="Wrap" Text="{Binding Supplier}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="514,21,0,0" TextWrapping="Wrap" Text="Поставщик" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
