@@ -20,6 +20,8 @@ namespace TestProducts
         {
             WindowNavigation.Instanse.RegisterWindowType<ProductsListVM, ProductsList>();
             WindowNavigation.Instanse.RegisterWindowType<ProductVM, Product>();
+            WindowNavigation.Instanse.RegisterWindowType<ProductEditVM, Product>();
+            WindowNavigation.Instanse.RegisterWindowType<SelectMaterialVM, SelectMaterial>();
         }
 
         protected override void OnStartup(StartupEventArgs e)

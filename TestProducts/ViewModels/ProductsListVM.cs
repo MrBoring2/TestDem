@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 using TestProducts.Helpers;
 using TestProducts.Models;
 using TestProducts.Services;
@@ -12,42 +14,68 @@ namespace TestProducts.ViewModels
 {
     public class ProductsListVM : BaseVM
     {
+        private Dispatcher Dispatcher { get; set; }
         private DataBaseService dataBaseService;
         private ObservableCollection<Products> products;
         private int itemsOnPage = 3;
+
+        private Products selectedProduct;
         public ObservableCollection<Products> Products { get => products; set { products = value; } }
-        public ObservableCollection<Products> FilterProducts 
-        { 
-            get => new ObservableCollection<Products>(Products.Skip(CurrentPage * itemsOnPage).Take(itemsOnPage)); 
+        public ObservableCollection<Products> FilterProducts
+        {
+            get => new ObservableCollection<Products>(Products.Skip(CurrentPage * itemsOnPage).Take(itemsOnPage));
         }
 
         public ProductsListVM()
         {
+            Dispatcher = Dispatcher.CurrentDispatcher;
+            AddProduct = new RelayCommand(AddProductAsync);
+            EditProduct = new RelayCommand(EditProductAsync);
             dataBaseService = new DataBaseService();
             LoadProducts();
         }
 
         private RelayCommand editProduct;
-        private RelayCommand addProduct;
         private RelayCommand removeProduct;
-        
-        public RelayCommand EditProduct
+
+        public RelayCommand EditProduct { get; set; }
+
+        async void EditProductAsync(object _)
         {
-            get
+            var productsVM = new ProductEditVM(_ as Products);
+            await Task.Run(() => WindowNavigation.Instanse.OpenModalWindow(productsVM));
+            if (productsVM.DialogResult == true)
             {
-                return editProduct ?? (editProduct = new RelayCommand(obj =>
-                {
-                    
-                }));
+                
             }
+
         }
-        public RelayCommand AddProduct
+
+        public RelayCommand AddProduct { get; set; }
+
+        ///
+        async void AddProductAsync(object _)
+        {
+            var productsVM = new ProductVM();
+            await Task.Run(() => WindowNavigation.Instanse.OpenModalWindow(productsVM));
+            if (productsVM.DialogResult == true)
+            {
+                dataBaseService.AddProduct(productsVM.NewProduct);
+                LoadProducts();
+                OnPropertyChanged("FilterProducts");
+            }
+
+        }
+
+
+        private RelayCommand test;
+        public RelayCommand Test
         {
             get
             {
-                return addProduct ?? (addProduct = new RelayCommand(obj =>
+                return test ?? (test = new RelayCommand(obj =>
                 {
-                    WindowNavigation.Instanse.OpenModalWindow(new ProductVM());
+                    MessageBox.Show("dsad");
                 }));
             }
         }
@@ -57,7 +85,9 @@ namespace TestProducts.ViewModels
             {
                 return removeProduct ?? (removeProduct = new RelayCommand(obj =>
                 {
-
+                    dataBaseService.RemoveProduct((obj as Products).ProductName);
+                    LoadProducts();
+                    OnPropertyChanged("FilterProducts");
                 }));
             }
         }
@@ -70,7 +100,7 @@ namespace TestProducts.ViewModels
             {
                 return nextPage ?? (nextPage = new RelayCommand(obj =>
                 {
-                    if(CurrentPage + 1 < MaxPage)
+                    if (CurrentPage + 1 < MaxPage)
                         CurrentPage++;
                 }));
             }
@@ -81,7 +111,7 @@ namespace TestProducts.ViewModels
             {
                 return previousPage ?? (previousPage = new RelayCommand(obj =>
                 {
-                    if(CurrentPage > 0)
+                    if (CurrentPage > 0)
                         CurrentPage--;
                 }));
             }
@@ -92,7 +122,7 @@ namespace TestProducts.ViewModels
             //FilterProducts = new ObservableCollection<Products>(Products.Skip(CurrentPage * itemsOnPage).Take(itemsOnPage));
         }
         private int MaxPage
-        { 
+        {
             get => Convert.ToInt32(Math.Ceiling((float)Products.Count / (float)itemsOnPage));
         }
         private int currentPage;
@@ -105,9 +135,12 @@ namespace TestProducts.ViewModels
             set
             {
                 currentPage = value;
+                OnPropertyChanged();
                 OnPropertyChanged("FilterProducts");
             }
         }
+
+        public Products SelectedProduct { get => selectedProduct; set { selectedProduct = value; OnPropertyChanged(); } }
 
         private void LoadProducts()
         {

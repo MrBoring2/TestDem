@@ -14,7 +14,15 @@ namespace TestProducts.Services
         {
             using(var db = new TestModel())
             {
-                return db.Products.ToList();
+                return db.Products.Include("MaterialToProduct").Include("MaterialToProduct.Materials").ToList();
+            }
+        }
+
+        public List<Materials> GetMaterials()
+        {
+            using (var db = new TestModel())
+            {
+                return db.Materials.ToList();
             }
         }
 
@@ -24,6 +32,18 @@ namespace TestProducts.Services
             {
                 db.Products.Add(product);
                 db.SaveChanges();
+            }
+        }
+        public void RemoveProduct(string productName)
+        {
+            using (var db = new TestModel())
+            {
+                var product = db.Products.Find(productName);
+                if (product != null)
+                {
+                    db.Products.Remove(product);
+                    db.SaveChanges();
+                }
             }
         }
     }

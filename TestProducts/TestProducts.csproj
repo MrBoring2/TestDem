@@ -72,23 +72,30 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\Converters\ImageConverter.cs" />
+    <Compile Include="Helpers\OpenDialogCommand.cs" />
     <Compile Include="Helpers\WindowNavigation.cs" />
     <Compile Include="Migrations\202110241610237_new.cs" />
     <Compile Include="Migrations\202110241610237_new.Designer.cs">
       <DependentUpon>202110241610237_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Services\DataBaseService.cs" />
     <Compile Include="Services\DialogCloser.cs" />
     <Compile Include="Services\DisplayRootRegistry.cs" />
     <Compile Include="ViewModels\BaseVM.cs" />
+    <Compile Include="ViewModels\ProductEditVM.cs" />
     <Compile Include="ViewModels\ProductsListVM.cs" />
     <Compile Include="ViewModels\ProductVM.cs" />
+    <Compile Include="ViewModels\SelectMaterialVM.cs" />
     <Compile Include="Views\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductsList.xaml.cs">
       <DependentUpon>ProductsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectMaterial.xaml.cs">
+      <DependentUpon>SelectMaterial.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProductsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectMaterial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

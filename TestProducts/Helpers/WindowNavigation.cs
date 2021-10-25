@@ -52,11 +52,11 @@ namespace TestProducts.Helpers
             }
         }
 
-        public async void OpenModalWindow(BaseVM windowVM)
+        public async Task OpenModalWindow(BaseVM windowVM)
         {
             if (windowVM != null)
             {
-                await displayRootRegistry.ShowMoldaWindow(windowVM);
+               await App.Current.Dispatcher.InvokeAsync(() => displayRootRegistry.ShowMoldaWindow(windowVM));
             }
         }
 

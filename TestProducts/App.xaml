@@ -5,6 +5,14 @@
              xmlns:converters="clr-namespace:TestProducts.Helpers.Converters"
              ShutdownMode="OnLastWindowClose">
     <Application.Resources>
-        <converters:ImageConverter x:Key="imgConv"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:ImageConverter x:Key="imgConv"/>
+                </ResourceDictionary>
+                
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

@@ -59,11 +59,11 @@ namespace TestProducts.Services
             else throw new Exception("Такой формы нет");
         }
 
-        public async Task ShowMoldaWindow(BaseVM viewModel)
+        public bool? ShowMoldaWindow(BaseVM viewModel)
         {
             var window = CreateWindowWihhVM(viewModel);
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            await window.Dispatcher.InvokeAsync(() => window.ShowDialog());
+            return window.Dispatcher.Invoke(()=> window.ShowDialog());
         }
     }
 }

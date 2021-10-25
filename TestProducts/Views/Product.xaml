@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestProducts.Views"
+        xmlns:dr="clr-namespace:TestProducts.Services"
         mc:Ignorable="d"
-        Title="Product" Height="450" Width="800">
+        Title="Product" Height="450" Width="800"
+        dr:DialogCloser.DialogResult="{Binding DialogResult}">
     <Grid>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="30,88,0,0" TextWrapping="Wrap" Text="{Binding Type}" VerticalAlignment="Top" Width="120"/>
         <TextBlock HorizontalAlignment="Left" Margin="30,58,0,0" TextWrapping="Wrap" Text="Тип" VerticalAlignment="Top"/>
@@ -15,10 +17,16 @@
         <TextBlock HorizontalAlignment="Left" Margin="239,58,0,0" TextWrapping="Wrap" Text="Картинка" VerticalAlignment="Top"/>
         <Button Command="{Binding LoadImage}" Content="Загрузить" HorizontalAlignment="Left" Margin="239,207,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Command="{Binding Add}" Content="Добавить" HorizontalAlignment="Left" Margin="30,334,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="347,51,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" Margin="347,21,0,0" TextWrapping="Wrap" Text="Название" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="514,51,0,0" TextWrapping="Wrap" Text="{Binding Supplier}" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" Margin="514,21,0,0" TextWrapping="Wrap" Text="Поставщик" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="30,30,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,0,0,0" TextWrapping="Wrap" Text="Название" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="35,244,0,0" TextWrapping="Wrap" Text="{Binding Supplier}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="35,214,0,0" TextWrapping="Wrap" Text="Поставщик" VerticalAlignment="Top"/>
+        <ListView ItemsSource="{Binding Materials}" DisplayMemberPath="MaterialName" HorizontalAlignment="Left" Height="163" Margin="382,64,0,0" VerticalAlignment="Top" Width="177">
+
+        </ListView>
+        <TextBlock HorizontalAlignment="Left" Margin="382,30,0,0" TextWrapping="Wrap" Text="Материалы" VerticalAlignment="Top"/>
+        <Button Command="{Binding AddMaterials}" Content="Добавить" HorizontalAlignment="Left" Margin="382,244,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Удалить" HorizontalAlignment="Left" Margin="484,244,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

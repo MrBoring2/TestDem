@@ -1,4 +1,3 @@
-C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\TestProducts.csproj.AssemblyReference.cache
 C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\App.g.cs
 C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\TestProducts_MarkupCompile.cache
 C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\TestProducts.Properties.Resources.resources
@@ -29,3 +28,5 @@ C:\Users\MrBoring\source\repos\TestProducts\TestProducts\bin\Debug\Microsoft.Xam
 C:\Users\MrBoring\source\repos\TestProducts\TestProducts\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
 C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\Views\Product.baml
 C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\Views\SelectMaterial.g.cs
+C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\Views\SelectMaterial.baml
