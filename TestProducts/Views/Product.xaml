@@ -16,7 +16,7 @@
         <Image Source="{Binding Image}" HorizontalAlignment="Left" Height="100" Margin="239,88,0,0" VerticalAlignment="Top" Width="100"/>
         <TextBlock HorizontalAlignment="Left" Margin="239,58,0,0" TextWrapping="Wrap" Text="Картинка" VerticalAlignment="Top"/>
         <Button Command="{Binding LoadImage}" Content="Загрузить" HorizontalAlignment="Left" Margin="239,207,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Command="{Binding Add}" Content="Добавить" HorizontalAlignment="Left" Margin="30,334,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding SaveProduct}" Content="Добавить" HorizontalAlignment="Left" Margin="30,334,0,0" VerticalAlignment="Top" Width="75"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="30,30,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
         <TextBlock HorizontalAlignment="Left" Margin="30,0,0,0" TextWrapping="Wrap" Text="Название" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="35,244,0,0" TextWrapping="Wrap" Text="{Binding Supplier}" VerticalAlignment="Top" Width="120"/>

@@ -11,7 +11,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resourses/ListViewItemTemplate.xaml">
-                    
+
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -44,10 +44,22 @@
             </ListView>
         </GroupBox>
         <Button Command="{Binding AddProduct}" Content="Добавить" HorizontalAlignment="Left" Margin="10,24,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
-        <Button Command="{Binding NextPage}" Content="След" HorizontalAlignment="Left" Margin="397,29,0,0" Grid.Row="2" VerticalAlignment="Top" Width="74"/>
-        <Button Command="{Binding PreviousPage}" Content="Пред" HorizontalAlignment="Left" Margin="554,34,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
-        <TextBlock HorizontalAlignment="Left" Margin="488,33,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding CurrentPage}" VerticalAlignment="Top"/>
+        <Button Command="{Binding NextPage}" Content="След" HorizontalAlignment="Left" Margin="621,29,0,0" Grid.Row="2" VerticalAlignment="Top" Width="74"/>
+        <Button Command="{Binding PreviousPage}" Content="Пред" HorizontalAlignment="Left" Margin="473,29,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
         <Button Content="Удалить" Command="{Binding RemoveProduct}" CommandParameter="{Binding ElementName=productList, Path=SelectedItem}" HorizontalAlignment="Left" Margin="162,24,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,39,0,0" TextWrapping="Wrap" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="139"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,18,0,0" TextWrapping="Wrap" Text="Поиск" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="168,18,0,0" TextWrapping="Wrap" Text="Фильтрация" VerticalAlignment="Top"/>
+        <ComboBox DisplayMemberPath="Title" ItemsSource="{Binding FilterTypes}" SelectedItem="{Binding SelectedType}" HorizontalAlignment="Left" Margin="168,39,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="303,18,0,0" TextWrapping="Wrap" Text="Сортировка" VerticalAlignment="Top"/>
+        <ComboBox DisplayMemberPath="Title" ItemsSource="{Binding SortParameters}" SelectedItem="{Binding SortBy}" HorizontalAlignment="Left" Margin="303,39,0,0" VerticalAlignment="Top" Width="120"/>
+        <GroupBox HorizontalAlignment="Right" Margin="0,10,231,249" Grid.RowSpan="2">
+            <StackPanel HorizontalAlignment="Right">
+                <RadioButton IsChecked="{Binding OrderByAscend, Converter={StaticResource radConv}, ConverterParameter=1}" Content="По возрастанию"  HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                <RadioButton IsChecked="{Binding OrderByAscend, ConverterParameter=0, Converter={StaticResource radConv}}" Content="По убыванию" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            </StackPanel>
+        </GroupBox>
+        <TextBlock HorizontalAlignment="Left" Margin="561,31,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding DisplayPages}" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,27 +8,17 @@ using System.Windows.Data;
 
 namespace TestProducts.Helpers.Converters
 {
-    public class ImageConverter : IValueConverter
+    public class RadioButtonCOnverter : IValueConverter
     {
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value != null)
-            {
-                byte[] imageBytes = null;
-
-                string path = @"../../Resourses/" + value as string;
-
-                imageBytes = File.ReadAllBytes(path);
-
-                //   using(var ms = new MemoryStream()
-                return imageBytes;
-            }
-            return null;
+            return value.Equals(System.Convert.ToBoolean(System.Convert.ToInt32(parameter)));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return System.Convert.ToBoolean(value) ? System.Convert.ToBoolean(System.Convert.ToInt32(parameter)) : Binding.DoNothing;
         }
     }
 }

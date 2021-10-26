@@ -12,7 +12,7 @@ using TestProducts.Services;
 
 namespace TestProducts.ViewModels
 {
-    public class ProductVM : BaseVM
+    public class ProductVM : BaseProductVM
     {
         private DataBaseService dataBaseService;
         private string name;
@@ -23,12 +23,12 @@ namespace TestProducts.ViewModels
         private string tempFileName;
         private byte[] image;
         private ObservableCollection<Materials> materials;
-        private Dictionary<Materials, int> materialsObjects;
-        public Products NewProduct { get; private set; }
+        protected Dictionary<Materials, int> materialsObjects;
+        public Products CurrentProduct { get; protected set; }
         private bool? dialogResult;
         public ProductVM()
         {
-            NewProduct = new Products();
+            CurrentProduct = new Products();
             dataBaseService = new DataBaseService();
             AddMaterials = new RelayCommand(AddMaterialsAsync);
             Materials = new ObservableCollection<Materials>();
@@ -77,29 +77,27 @@ namespace TestProducts.ViewModels
                 }));
             }
         }
-
-        private RelayCommand add;
-        public RelayCommand Add
-        {
+        public override RelayCommand SaveProduct 
+        {        
             get
             {
-                return add ?? (add = new RelayCommand(obj =>
+                return saveProduct ?? (saveProduct = new RelayCommand(obj =>
                 {
                     try
                     {
                         File.Copy(TempFileName, @"../../Resourses/Images/" + FilePath);
                         List<MaterialToProduct> list = new List<MaterialToProduct>();
-                        
-                        NewProduct.Amount = Convert.ToInt32(Amount);
-                        NewProduct.ImagePath = @"Images/" + FilePath;
-                        NewProduct.ProductName = Name;
-                        NewProduct.Supplier = Supplier;
-                        NewProduct.Type = Type;
+
+                        CurrentProduct.Amount = Convert.ToInt32(Amount);
+                        CurrentProduct.ImagePath = @"Images/" + FilePath;
+                        CurrentProduct.ProductName = Name;
+                        CurrentProduct.Supplier = Supplier;
+                        CurrentProduct.Type = Type;
                         foreach (var item in Materials)
                         {
-                            list.Add(new MaterialToProduct { ProductName = NewProduct.ProductName, MaterialName = item.MaterialName, AmountOfMaterial = materialsObjects[item] });
+                            list.Add(new MaterialToProduct { ProductName = CurrentProduct.ProductName, MaterialName = item.MaterialName, AmountOfMaterial = materialsObjects[item] });
                         }
-                        NewProduct.MaterialToProduct = list;
+                        CurrentProduct.MaterialToProduct = list;
                         DialogResult = true;
                     }
                     catch (Exception ex)
@@ -109,7 +107,6 @@ namespace TestProducts.ViewModels
                 }));
             }
         }
-        private RelayCommand addMaterial;
         public RelayCommand AddMaterials { get; set; }
 
         public byte[] Image { get => image; set { image = value; OnPropertyChanged(); } }

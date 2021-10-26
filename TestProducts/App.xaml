@@ -10,7 +10,10 @@
                 <ResourceDictionary>
                     <converters:ImageConverter x:Key="imgConv"/>
                 </ResourceDictionary>
-                
+                <ResourceDictionary>
+                    <converters:RadioButtonCOnverter x:Key="radConv"/>
+                </ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

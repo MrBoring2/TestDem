@@ -7,9 +7,25 @@ using System.Threading.Tasks;
 
 namespace TestProducts.Models
 {
-    class BaseEntity
+    public class BaseEntity
     {
         [NotMapped]
-        public string adsd;
+        public object this[string property]
+        {
+            get
+            {
+                if(property != string.Empty)
+                {
+                    var info = this.GetType().GetProperty(property);
+                    return info.GetValue(this, null);
+                }
+                return null;
+            }
+        }
+
+        public object GetModelPropert(string property)
+        {
+            return GetType().GetProperty(property).GetValue(this, null);
+        }
     }
 }

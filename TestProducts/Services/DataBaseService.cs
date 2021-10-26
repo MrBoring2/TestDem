@@ -46,5 +46,17 @@ namespace TestProducts.Services
                 }
             }
         }
+
+        public void UpdateProduct(Products currentProduct)
+        {
+            using(var db = new TestModel())
+            {
+                if(currentProduct != null)
+                {
+                    db.Entry(currentProduct).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

@@ -30,3 +30,4 @@ C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\Views\Product
 C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\Views\SelectMaterial.g.cs
 C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\Views\SelectMaterial.baml
+C:\Users\MrBoring\source\repos\TestProducts\TestProducts\obj\Debug\TestProducts.csproj.AssemblyReference.cache

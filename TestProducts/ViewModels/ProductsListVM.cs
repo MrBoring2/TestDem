@@ -19,11 +19,52 @@ namespace TestProducts.ViewModels
         private ObservableCollection<Products> products;
         private int itemsOnPage = 3;
 
+        private string searchText;
+        public string SearchText { get => searchText; set { searchText = value; OnPropertyChanged(); OnPropertyChanged(nameof(FilterProducts)); } }
+
+        private bool orderByAscend;
+        public bool OrderByAscend { get => orderByAscend; set { orderByAscend = value; OnPropertyChanged(); OnPropertyChanged(nameof(FilterProducts)); } }
+
+        private List<Filter> filterTypes;
+        public List<Filter> FilterTypes { get => filterTypes; set { filterTypes = value; OnPropertyChanged(); } }
+
+        private Filter selectedType;
+        public Filter SelectedType { get => selectedType; set { selectedType = value; OnPropertyChanged(); OnPropertyChanged(nameof(FilterProducts)); } }
+
         private Products selectedProduct;
         public ObservableCollection<Products> Products { get => products; set { products = value; } }
+
+        private List<Filter> sortParameters;
+        public List<Filter> SortParameters { get => sortParameters; set { sortParameters = value; OnPropertyChanged(); } }
+
+        private Filter sortBy;
+        public Filter SortBy { get => sortBy; set { sortBy = value; OnPropertyChanged(); OnPropertyChanged(nameof(FilterProducts)); } }
         public ObservableCollection<Products> FilterProducts
         {
-            get => new ObservableCollection<Products>(Products.Skip(CurrentPage * itemsOnPage).Take(itemsOnPage));
+            get
+            {
+                OnPropertyChanged(nameof(DisplayPages));
+                if (OrderByAscend)
+                {
+                    return new ObservableCollection<Products>
+                    (Products
+                    .Where(p => p.ProductName
+                    .Contains(SearchText))
+                    .Where(p => SelectedType.Title.Equals("Все типы") ? p.Type.Contains("") : p.Type.Equals(SelectedType.Title))
+                    .OrderBy(p => p.GetModelPropert(SortBy.Property)).Skip(CurrentPage * itemsOnPage).Take(itemsOnPage)); ;
+                }
+                else return new ObservableCollection<Products>
+                    (Products.Where(p => p.ProductName
+                    .Contains(SearchText))
+                    .Where(p => SelectedType.Title.Equals("Все типы") ? p.Type.Contains("") : p.Type.Equals(SelectedType.Title))
+                    .OrderByDescending(p => p.GetModelPropert(SortBy.Property)).Skip(CurrentPage * itemsOnPage).Take(itemsOnPage));
+            }
+        }
+
+
+        public string DisplayPages
+        {
+            get => $"{CurrentPage + 1}/{MaxPage}";
         }
 
         public ProductsListVM()
@@ -33,9 +74,25 @@ namespace TestProducts.ViewModels
             EditProduct = new RelayCommand(EditProductAsync);
             dataBaseService = new DataBaseService();
             LoadProducts();
+            SortParameters = new List<Filter>
+            {
+                new Filter("Название", "ProductName"),
+                new Filter("Количество", "Amount"),
+                new Filter("Поставщик", "Supplier"),
+                new Filter("Тип", "Type")
+            };
+            FilterTypes = new List<Filter>
+            {
+                new Filter("Все типы", null),
+                new Filter("Подушка", "Type"),
+                new Filter("Стол", "Type")
+            };
+            SearchText = string.Empty;
+            SortBy = SortParameters[0];
+            SelectedType = FilterTypes[0];
+            OrderByAscend = true;
         }
 
-        private RelayCommand editProduct;
         private RelayCommand removeProduct;
 
         public RelayCommand EditProduct { get; set; }
@@ -46,21 +103,23 @@ namespace TestProducts.ViewModels
             await Task.Run(() => WindowNavigation.Instanse.OpenModalWindow(productsVM));
             if (productsVM.DialogResult == true)
             {
-                
+                dataBaseService.UpdateProduct(productsVM.CurrentProduct);
+                LoadProducts();
+                OnPropertyChanged("FilterProducts");
             }
 
         }
 
         public RelayCommand AddProduct { get; set; }
 
-        ///
+
         async void AddProductAsync(object _)
         {
             var productsVM = new ProductVM();
             await Task.Run(() => WindowNavigation.Instanse.OpenModalWindow(productsVM));
             if (productsVM.DialogResult == true)
             {
-                dataBaseService.AddProduct(productsVM.NewProduct);
+                dataBaseService.AddProduct(productsVM.CurrentProduct);
                 LoadProducts();
                 OnPropertyChanged("FilterProducts");
             }
@@ -123,7 +182,16 @@ namespace TestProducts.ViewModels
         }
         private int MaxPage
         {
-            get => Convert.ToInt32(Math.Ceiling((float)Products.Count / (float)itemsOnPage));
+
+            get
+            {
+
+                return Convert.ToInt32(Math.Ceiling((float)Products
+                    .Where(p => p.ProductName
+                    .Contains(SearchText))
+                    .Where(p => SelectedType.Title.Equals("Все типы") ? p.Type.Contains("") : p.Type.Equals(SelectedType.Title)).Count() / (float)itemsOnPage));
+
+            }
         }
         private int currentPage;
         public int CurrentPage
@@ -136,6 +204,8 @@ namespace TestProducts.ViewModels
             {
                 currentPage = value;
                 OnPropertyChanged();
+
+                OnPropertyChanged("DisplayPages");
                 OnPropertyChanged("FilterProducts");
             }
         }
